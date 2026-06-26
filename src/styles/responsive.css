@@ -1,0 +1,273 @@
+/* Responsive Styles & Breakpoints */
+
+/* Layout Flex on desktop */
+.main {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: 96px; /* Space for fixed navbar */
+  min-height: calc(100vh - 64px);
+  position: relative;
+}
+
+/* Sidebar & Main view toggle rules */
+.sidebar {
+  flex-shrink: 0;
+}
+
+.zen {
+  flex: 1;
+  width: 100%;
+}
+
+/* Desktop View Defaults */
+@media (min-width: 1101px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+/* Medium Breakpoint (Laptop / Tablet Landscape) */
+@media (max-width: 1100px) {
+  .main {
+    flex-direction: column;
+    padding-top: 88px;
+    padding-bottom: 76px; /* Space for mobile floating nav */
+  }
+
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--border-normal);
+  }
+
+  .zen {
+    min-height: 500px;
+  }
+
+  /* Sync view visibility with mobile navigation active tab */
+  .sidebar, .zen {
+    display: none;
+  }
+
+  /* Breathe Tab shows the central visualizer stage */
+  .m-tab-breathe .zen {
+    display: flex;
+  }
+
+  /* Other tabs show the sidebar and only their active panel content */
+  .m-tab-library .sidebar,
+  .m-tab-adjust .sidebar,
+  .m-tab-todo .sidebar,
+  .m-tab-journal .sidebar {
+    display: flex;
+  }
+}
+
+/* Tablet Portrait & Mobile (768px and down) */
+@media (max-width: 768px) {
+  .nav {
+    padding: 0 var(--space-4);
+  }
+
+  .brand-tag {
+    display: none; /* Hide subtitle to save space */
+  }
+
+  .nav-links {
+    gap: var(--space-3);
+  }
+
+  .nav-link:not(.active) {
+    display: none; /* Hide educational links on mobile header, keep only streak/stats button */
+  }
+
+  .breath-orb-wrap {
+    width: 280px;
+    height: 280px;
+  }
+
+  .progress-ring {
+    width: 230px;
+    height: 230px;
+  }
+
+  .progress-ring circle {
+    cx: 115;
+    cy: 115;
+    r: 112;
+  }
+
+  .breath-glow-ring {
+    width: 210px;
+    height: 210px;
+  }
+
+  .breath-orb {
+    width: 120px;
+    height: 120px;
+  }
+
+  .breath-center {
+    width: 146px;
+    height: 146px;
+  }
+
+  .breath-timer {
+    font-size: 2.8rem;
+  }
+
+  .breath-instruction {
+    font-size: 0.7rem;
+    height: 24px;
+  }
+
+  .edu {
+    padding: var(--space-6) var(--space-4);
+    gap: var(--space-6);
+  }
+
+  .edu-title {
+    font-size: 1.6rem;
+  }
+
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .ctrl-btn.play {
+    width: 64px;
+    height: 64px;
+  }
+
+  .ctrl-btn.side {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* Small Mobile Breakpoint (375px and down) */
+@media (max-width: 375px) {
+  .nav {
+    top: 8px;
+    height: 52px;
+  }
+
+  .breath-orb-wrap {
+    width: 250px;
+    height: 250px;
+  }
+
+  .progress-ring {
+    width: 200px;
+    height: 200px;
+  }
+
+  .progress-ring circle {
+    cx: 100;
+    cy: 100;
+    r: 97;
+  }
+
+  .breath-glow-ring {
+    width: 180px;
+    height: 180px;
+  }
+
+  .breath-orb {
+    width: 100px;
+    height: 100px;
+  }
+
+  .breath-center {
+    width: 126px;
+    height: 126px;
+  }
+
+  .breath-timer {
+    font-size: 2.4rem;
+  }
+
+  .waveform-container {
+    max-width: 280px;
+  }
+}
+
+/* Apple Dock Inspired Bottom Mobile Navigation */
+.mobile-nav {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 480px;
+  height: 64px;
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 var(--space-2);
+  box-shadow: var(--shadow-lg);
+  z-index: 99;
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+.mobile-nav-btn {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.mobile-nav-btn svg {
+  transition: transform var(--transition-spring);
+}
+
+.mobile-nav-btn.active {
+  color: var(--c-inhale);
+}
+
+.mobile-nav-btn.active svg {
+  transform: translateY(-4px) scale(1.15);
+  color: var(--c-inhale);
+}
+
+/* Active Sliding Indicator Background */
+.mobile-nav-indicator {
+  position: absolute;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-high);
+  z-index: -1;
+  transition: all var(--transition-spring);
+  pointer-events: none;
+  border: 1px solid var(--border-muted);
+}
+
+/* Zen mode mobile nav hides */
+.zm .mobile-nav {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 20px);
+}

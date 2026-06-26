@@ -1,0 +1,134 @@
+/* Design Tokens - Ethereal Tactile Style */
+
+:root {
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', var(--font-sans);
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Spacing Scale (4px base, golden ratio progression) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-7: 3rem;     /* 48px */
+  --space-8: 4rem;     /* 64px */
+
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Transitions & Easings */
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms var(--ease-out-back);
+
+  /* Shared Phase Colors (HSL tailored) */
+  /* Inhale = Cool Cyan */
+  --h-inhale: 180;
+  --s-inhale: 85%;
+  --l-inhale: 45%;
+  --c-inhale: hsl(var(--h-inhale), var(--s-inhale), var(--l-inhale));
+  --c-inhale-glow: hsla(var(--h-inhale), var(--s-inhale), var(--l-inhale), 0.35);
+
+  /* Hold = Golden Amber */
+  --h-hold: 38;
+  --s-hold: 95%;
+  --l-hold: 50%;
+  --c-hold: hsl(var(--h-hold), var(--s-hold), var(--l-hold));
+  --c-hold-glow: hsla(var(--h-hold), var(--s-hold), var(--l-hold), 0.35);
+
+  /* Exhale = Warm Violet */
+  --h-exhale: 275;
+  --s-exhale: 85%;
+  --l-exhale: 55%;
+  --c-exhale: hsl(var(--h-exhale), var(--s-exhale), var(--l-exhale));
+  --c-exhale-glow: hsla(var(--h-exhale), var(--s-exhale), var(--l-exhale), 0.35);
+
+  /* Hold Empty = Deep Space Blue */
+  --h-hold2: 215;
+  --s-hold2: 90%;
+  --l-hold2: 50%;
+  --c-hold2: hsl(var(--h-hold2), var(--s-hold2), var(--l-hold2));
+  --c-hold2-glow: hsla(var(--h-hold2), var(--s-hold2), var(--l-hold2), 0.35);
+
+  /* Category colors */
+  --c-calm: #9d4edd;
+  --c-energy: #ff6b6b;
+  --c-sleep: #4ea8de;
+  --c-balance: #06d6a0;
+
+  /* Theme Dependent Tokens (Default Dark Mode) */
+  --bg-app: hsl(240, 20%, 4%);
+  --bg-app-rgb: 10, 10, 15;
+  --bg-mesh-1: hsl(260, 25%, 8%);
+  --bg-mesh-2: hsl(230, 25%, 6%);
+  
+  --surface-lowest: hsl(240, 15%, 5%);
+  --surface-low: hsl(240, 16%, 7%);
+  --surface-mid: hsl(240, 14%, 9%);
+  --surface-high: hsl(240, 12%, 12%);
+  --surface-highest: hsl(240, 10%, 16%);
+
+  /* Border / Glass / Neumorphic Tokens */
+  --border-muted: rgba(255, 255, 255, 0.05);
+  --border-normal: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  
+  --glass-bg: rgba(15, 15, 25, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-blur: blur(20px);
+
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 16px -8px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 20px 48px -10px rgba(0, 0, 0, 0.8), 0 10px 24px -16px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 40px -10px var(--c-inhale-glow);
+
+  --text-muted: hsl(240, 5%, 60%);
+  --text-normal: hsl(240, 5%, 88%);
+  --text-bright: hsl(0, 0%, 100%);
+  
+  /* Neumorphic shadow profiles */
+  --neu-outset: 3px 3px 6px rgba(0, 0, 0, 0.4), -3px -3px 6px rgba(255, 255, 255, 0.03);
+  --neu-inset: inset 2px 2px 5px rgba(0, 0, 0, 0.5), inset -2px -2px 5px rgba(255, 255, 255, 0.02);
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] {
+  --bg-app: hsl(220, 20%, 96%);
+  --bg-app-rgb: 245, 245, 248;
+  --bg-mesh-1: hsl(210, 30%, 93%);
+  --bg-mesh-2: hsl(230, 25%, 95%);
+  
+  --surface-lowest: hsl(220, 20%, 98%);
+  --surface-low: hsl(220, 18%, 95%);
+  --surface-mid: hsl(220, 15%, 92%);
+  --surface-high: hsl(220, 12%, 89%);
+  --surface-highest: hsl(220, 10%, 85%);
+
+  --border-muted: rgba(0, 0, 0, 0.03);
+  --border-normal: rgba(0, 0, 0, 0.06);
+  --border-strong: rgba(0, 0, 0, 0.12);
+
+  --glass-bg: rgba(250, 250, 253, 0.75);
+  --glass-border: rgba(0, 0, 0, 0.05);
+
+  --shadow-sm: 0 2px 6px -2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 20px -4px rgba(0, 0, 0, 0.08), 0 4px 10px -6px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 36px -8px rgba(0, 0, 0, 0.12), 0 8px 18px -12px rgba(0, 0, 0, 0.08);
+
+  --text-muted: hsl(220, 10%, 45%);
+  --text-normal: hsl(220, 15%, 20%);
+  --text-bright: hsl(220, 20%, 10%);
+
+  --neu-outset: 3px 3px 6px rgba(0, 0, 0, 0.06), -3px -3px 6px rgba(255, 255, 255, 0.8);
+  --neu-inset: inset 2px 2px 5px rgba(0, 0, 0, 0.05), inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+}

@@ -1,0 +1,253 @@
+/* Educational & Info Sections Styling */
+
+.edu {
+  padding: var(--space-8) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.edu-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  scroll-margin-top: 100px;
+}
+
+.edu-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 700px;
+}
+
+.edu-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--text-bright), var(--text-muted));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.edu-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* 1. Science Section (Four Pillars) */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-5);
+}
+
+.pillar {
+  background-color: var(--surface-low);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.pillar:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-normal);
+  background-color: var(--surface-mid);
+}
+
+/* Gradient top borders on cards */
+.pillar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-inhale), var(--c-hold));
+}
+
+.pillar:nth-child(2)::after { background: linear-gradient(90deg, var(--c-hold), var(--c-exhale)); }
+.pillar:nth-child(3)::after { background: linear-gradient(90deg, var(--c-exhale), var(--c-hold2)); }
+.pillar:nth-child(4)::after { background: linear-gradient(90deg, var(--c-hold2), var(--c-inhale)); }
+
+.pillar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pillar-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-inhale);
+}
+
+.pillar:nth-child(2) .pillar-icon { color: var(--c-hold); }
+.pillar:nth-child(3) .pillar-icon { color: var(--c-exhale); }
+.pillar:nth-child(4) .pillar-icon { color: var(--c-hold2); }
+
+/* Giant Number Watermark background */
+.pillar-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  opacity: 0.08;
+  line-height: 1;
+}
+
+.pillar-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.pillar-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.pillar-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* 2. Benefits Section (Horizontal List) */
+.benefits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.benefit {
+  background-color: var(--surface-low);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: all var(--transition-normal);
+}
+
+.benefit:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-normal);
+  background-color: var(--surface-mid);
+}
+
+.benefit-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-icon.blue { background-color: rgba(78, 168, 222, 0.1); color: var(--c-sleep); }
+.benefit-icon.teal { background-color: rgba(6, 214, 160, 0.1); color: var(--c-balance); }
+.benefit-icon.purple { background-color: rgba(157, 78, 221, 0.1); color: var(--c-calm); }
+.benefit-icon.orange { background-color: rgba(255, 159, 28, 0.1); color: #ff9f1c; }
+
+.benefit-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-top: 4px;
+}
+
+.benefit-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Section divider lines */
+.edu-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+}
+
+/* Scroll Indicators */
+.scroll-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin: var(--space-4) auto;
+  transition: color var(--transition-fast);
+  z-index: 10;
+}
+
+.scroll-cta:hover {
+  color: var(--text-bright);
+}
+
+/* Footer Section */
+.footer {
+  border-top: 1px solid var(--border-normal);
+  padding: var(--space-6) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-align: center;
+  background-color: var(--surface-lowest);
+  position: relative;
+  z-index: 10;
+}
+
+.footer p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer .sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* Intersection Observer Animations Styles */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
