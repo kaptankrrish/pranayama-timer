@@ -1,5 +1,5 @@
 
-import { Wind, Compass, Sliders, CheckSquare, Clock, Activity, Trophy } from 'lucide-react';
+import { Wind, Compass, Sliders, CheckSquare, Trophy } from 'lucide-react';
 import { TabType } from '../types';
 
 interface MobileNavProps {
@@ -7,7 +7,6 @@ interface MobileNavProps {
   setMobileTab: (tab: 'breathe' | 'library' | 'adjust' | 'todo' | 'journal') => void;
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
-  activeSubTab: 'tasks' | 'timers' | 'stopwatches';
 }
 
 export function MobileNav({
@@ -15,7 +14,6 @@ export function MobileNav({
   setMobileTab,
   activeTab: _activeTab,
   setActiveTab,
-  activeSubTab,
 }: MobileNavProps) {
   const tabsOrder: Array<'breathe' | 'library' | 'adjust' | 'todo' | 'journal'> = [
     'breathe',
@@ -80,14 +78,8 @@ export function MobileNav({
         className={`mobile-nav-btn ${mobileTab === 'todo' ? 'active' : ''}`} 
         onClick={() => handleTabClick('todo')}
       >
-        {activeSubTab === 'tasks' && <CheckSquare size={20} />}
-        {activeSubTab === 'timers' && <Clock size={20} />}
-        {activeSubTab === 'stopwatches' && <Activity size={20} />}
-        <span>
-          {activeSubTab === 'tasks' && 'Tasks'}
-          {activeSubTab === 'timers' && 'Timers'}
-          {activeSubTab === 'stopwatches' && 'Stopwatch'}
-        </span>
+        <CheckSquare size={20} />
+        <span>Tasks</span>
       </button>
 
       {/* 5. Journal / Stats Tab */}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Compass, Activity, Trophy, Eye, EyeOff, CheckSquare, Clock } from 'lucide-react';
+import { Compass, Activity, Trophy, Eye, EyeOff } from 'lucide-react';
 
 // Subcomponents
 import { Navbar } from './components/Navbar';
@@ -71,7 +71,6 @@ export default function App() {
   // 2. Tab Navigation States
   const [activeTab, setActiveTab] = useState<TabType>('presets');
   const [mobileTab, setMobileTab] = useState<'breathe' | 'library' | 'adjust' | 'todo' | 'journal'>('breathe');
-  const [activeSubTab, setActiveSubTab] = useState<'tasks' | 'timers' | 'stopwatches'>('tasks');
   const [currentPage, setCurrentPage] = useState<PageType>('breathe');
   const [isZenMode, setIsZenMode] = useState(false);
 
@@ -804,7 +803,6 @@ export default function App() {
           setMobileTab={setMobileTab}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          activeSubTab={activeSubTab}
         />
       )}
     </div>
