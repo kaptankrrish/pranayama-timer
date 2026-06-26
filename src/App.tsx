@@ -585,7 +585,6 @@ export default function App() {
       />
 
       {currentPage === 'breathe' ? (
-      {/* Main Container Split Grid */}
       <div className="main">
         {/* Sidebar panels navigation */}
         <aside className="sidebar" id="sidebar">
