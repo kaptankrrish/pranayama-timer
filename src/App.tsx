@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Compass, Activity, Trophy, Eye, EyeOff, CheckSquare } from 'lucide-react';
+import { Compass, Activity, Trophy, Eye, EyeOff } from 'lucide-react';
 
 // Subcomponents
 import { Navbar } from './components/Navbar';
@@ -70,10 +70,9 @@ export default function App() {
 
   // 2. Tab Navigation States
   const [activeTab, setActiveTab] = useState<TabType>('presets');
-  const [mobileTab, setMobileTab] = useState<'breathe' | 'library' | 'adjust' | 'todo' | 'journal'>('breathe');
+  const [mobileTab, setMobileTab] = useState<'breathe' | 'tasks' | 'timers' | 'stopwatches' | 'journal'>('breathe');
   const [currentPage, setCurrentPage] = useState<PageType>('breathe');
   const [isZenMode, setIsZenMode] = useState(false);
-  const [sidebarSubTab, setSidebarSubTab] = useState<'tasks' | 'timers' | 'stopwatches'>('tasks');
 
   // 3. Form input states for Customize Panel
   const [formInhale, setFormInhale] = useState(() => settings.inhale);
@@ -561,6 +560,15 @@ export default function App() {
 
   const cursor = getWaveCursor();
 
+  // Full-page task panels props
+  const tasksPanelProps = {
+    todos, newTodoText, setNewTodoText, handleAddTodo, handleToggleTodo, handleDeleteTodo,
+    mindfulTimers, timerLabel, setTimerLabel, timerMinutes, setTimerMinutes,
+    timerSeconds, setTimerSeconds, handleAddTimer, handleToggleTimer, handleResetTimer, handleDeleteTimer,
+    mindfulStopwatches, stopwatchLabel, setStopwatchLabel, handleAddStopwatch, handleToggleStopwatch,
+    handleResetStopwatch, handleAddLap, handleDeleteStopwatch,
+  };
+
   return (
     <div className={`app ${getPhaseClass()} m-tab-${mobileTab}`}>
       {/* Dynamic Animated Noise Filter */}
@@ -600,11 +608,6 @@ export default function App() {
                   <Activity size={14} /> Customize Ratio
                 </>
               )}
-              {activeTab === 'todo' && (
-                <>
-                  <CheckSquare size={14} /> Tasks & Timers
-                </>
-              )}
               {activeTab === 'stats' && (
                 <>
                   <Trophy size={14} /> Progress Journal
@@ -617,7 +620,6 @@ export default function App() {
                 className={`tab ${activeTab === 'presets' ? 'active' : ''}`}
                 onClick={() => {
                   setActiveTab('presets');
-                  setMobileTab('library');
                 }}
               >
                 Presets
@@ -626,25 +628,14 @@ export default function App() {
                 className={`tab ${activeTab === 'customize' ? 'active' : ''}`}
                 onClick={() => {
                   setActiveTab('customize');
-                  setMobileTab('adjust');
                 }}
               >
                 Ratio
               </button>
               <button
-                className={`tab ${activeTab === 'todo' ? 'active' : ''}`}
-                onClick={() => {
-                  setActiveTab('todo');
-                  setMobileTab('todo');
-                }}
-              >
-                Tasks
-              </button>
-              <button
                 className={`tab ${activeTab === 'stats' ? 'active' : ''}`}
                 onClick={() => {
                   setActiveTab('stats');
-                  setMobileTab('journal');
                 }}
               >
                 Stats
@@ -705,38 +696,6 @@ export default function App() {
           )}
 
           {activeTab === 'stats' && <StatsPanel stats={stats} />}
-
-          {activeTab === 'todo' && (
-            <TasksPanel
-              todos={todos}
-              newTodoText={newTodoText}
-              setNewTodoText={setNewTodoText}
-              handleAddTodo={handleAddTodo}
-              handleToggleTodo={handleToggleTodo}
-              handleDeleteTodo={handleDeleteTodo}
-              mindfulTimers={mindfulTimers}
-              timerLabel={timerLabel}
-              setTimerLabel={setTimerLabel}
-              timerMinutes={timerMinutes}
-              setTimerMinutes={setTimerMinutes}
-              timerSeconds={timerSeconds}
-              setTimerSeconds={setTimerSeconds}
-              handleAddTimer={handleAddTimer}
-              handleToggleTimer={handleToggleTimer}
-              handleResetTimer={handleResetTimer}
-              handleDeleteTimer={handleDeleteTimer}
-              mindfulStopwatches={mindfulStopwatches}
-              stopwatchLabel={stopwatchLabel}
-              setStopwatchLabel={setStopwatchLabel}
-              handleAddStopwatch={handleAddStopwatch}
-              handleToggleStopwatch={handleToggleStopwatch}
-              handleResetStopwatch={handleResetStopwatch}
-              handleAddLap={handleAddLap}
-              handleDeleteStopwatch={handleDeleteStopwatch}
-              activeSubTab={sidebarSubTab}
-              setActiveSubTab={setSidebarSubTab}
-            />
-          )}
         </aside>
 
         {/* Central visualizer breath-work stage */}
@@ -798,42 +757,39 @@ export default function App() {
       ) : (
         <div className="full-page-container">
           <div className="full-page-content">
-            <TasksPanel
-              todos={todos}
-              newTodoText={newTodoText}
-              setNewTodoText={setNewTodoText}
-              handleAddTodo={handleAddTodo}
-              handleToggleTodo={handleToggleTodo}
-              handleDeleteTodo={handleDeleteTodo}
-              mindfulTimers={mindfulTimers}
-              timerLabel={timerLabel}
-              setTimerLabel={setTimerLabel}
-              timerMinutes={timerMinutes}
-              setTimerMinutes={setTimerMinutes}
-              timerSeconds={timerSeconds}
-              setTimerSeconds={setTimerSeconds}
-              handleAddTimer={handleAddTimer}
-              handleToggleTimer={handleToggleTimer}
-              handleResetTimer={handleResetTimer}
-              handleDeleteTimer={handleDeleteTimer}
-              mindfulStopwatches={mindfulStopwatches}
-              stopwatchLabel={stopwatchLabel}
-              setStopwatchLabel={setStopwatchLabel}
-              handleAddStopwatch={handleAddStopwatch}
-              handleToggleStopwatch={handleToggleStopwatch}
-              handleResetStopwatch={handleResetStopwatch}
-              handleAddLap={handleAddLap}
-              handleDeleteStopwatch={handleDeleteStopwatch}
-              activeSubTab={currentPage === 'tasks' ? 'tasks' : currentPage === 'timers' ? 'timers' : 'stopwatches'}
-              setActiveSubTab={(tab) => setCurrentPage(tab === 'tasks' ? 'tasks' : tab === 'timers' ? 'timers' : 'stopwatches')}
-              isFullPage={true}
-            />
+            {currentPage === 'tasks' && (
+              <TasksPanel
+                {...tasksPanelProps}
+                activeSubTab="tasks"
+                setActiveSubTab={() => {}}
+                isFullPage={true}
+              />
+            )}
+            {currentPage === 'timers' && (
+              <TasksPanel
+                {...tasksPanelProps}
+                activeSubTab="timers"
+                setActiveSubTab={() => {}}
+                isFullPage={true}
+              />
+            )}
+            {currentPage === 'stopwatches' && (
+              <TasksPanel
+                {...tasksPanelProps}
+                activeSubTab="stopwatches"
+                setActiveSubTab={() => {}}
+                isFullPage={true}
+              />
+            )}
+            {currentPage === 'journal' && (
+              <StatsPanel stats={stats} />
+            )}
           </div>
         </div>
       )}
 
       {/* Educational info cards triggers */}
-      {!isZenMode && (
+      {!isZenMode && currentPage === 'breathe' && (
         <a href="#about" className="scroll-cta">
           <span>Explore breathing science</span>
           <Activity size={16} style={{ transform: 'rotate(90deg)', marginTop: '4px' }} />
@@ -841,7 +797,7 @@ export default function App() {
       )}
 
       {/* Information reveals sections on scroll */}
-      <EducationSection />
+      {currentPage === 'breathe' && <EducationSection />}
 
       {/* Floating Apple Dock Bottom nav on mobile */}
       {!isZenMode && (

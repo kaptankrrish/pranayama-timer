@@ -12,7 +12,7 @@ export type Phase = 'ready' | 'prep' | 'inhale' | 'hold1' | 'exhale' | 'hold2' |
 
 export type TabType = 'presets' | 'customize' | 'todo' | 'stats';
 
-export type PageType = 'breathe' | 'tasks' | 'timers' | 'stopwatches';
+export type PageType = 'breathe' | 'tasks' | 'timers' | 'stopwatches' | 'journal';
 
 export interface TodoItem {
   id: string;
