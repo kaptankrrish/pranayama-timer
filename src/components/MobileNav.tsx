@@ -50,8 +50,8 @@ export function MobileNav({
       setCurrentPage('breathe');
     }
     if (tab === 'todo') {
-      setActiveTab('presets');
-      setCurrentPage('tasks');
+      setActiveTab('todo');
+      setCurrentPage('breathe');
     }
     if (tab === 'journal') {
       setActiveTab('stats');

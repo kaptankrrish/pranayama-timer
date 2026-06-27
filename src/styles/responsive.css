@@ -41,6 +41,8 @@
     width: 100%;
     max-width: 100%;
     height: auto;
+    max-height: calc(100vh - 88px);
+    max-height: calc(100dvh - 88px);
     position: static;
     border-right: none;
     border-bottom: 1px solid var(--border-normal);
@@ -327,6 +329,15 @@
   .sidebar {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    height: calc(100vh - 88px);
+    height: calc(100dvh - 88px);
+    top: 88px;
+  }
+
+  /* Smaller tab font for 4 tabs */
+  .tab {
+    font-size: 0.7rem;
+    padding: 6px 2px;
   }
 }
 

@@ -117,8 +117,22 @@ export function useAmbientAudio() {
 
   useEffect(() => {
     synthRef.current = new AmbientSynth();
+    
+    // Resume audio context on first user interaction (needed for mobile browsers)
+    const resumeAudio = () => {
+      if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
+        audioCtxRef.current.resume();
+      }
+      document.removeEventListener('touchstart', resumeAudio);
+      document.removeEventListener('click', resumeAudio);
+    };
+    document.addEventListener('touchstart', resumeAudio, { once: true });
+    document.addEventListener('click', resumeAudio, { once: true });
+    
     return () => {
       synthRef.current?.stopAll();
+      document.removeEventListener('touchstart', resumeAudio);
+      document.removeEventListener('click', resumeAudio);
     };
   }, []);
 
@@ -127,10 +141,16 @@ export function useAmbientAudio() {
     if (!synthRef.current) return;
     if (type === 'none') {
       synthRef.current.stopAll();
-    } else if (type === 'ocean' && isRunning) {
-      synthRef.current.playOcean(audioVolume);
-    } else if (type === 'cosmos' && isRunning) {
-      synthRef.current.playCosmos(audioVolume);
+    } else if (isRunning) {
+      // Play immediately if breathing is running
+      if (type === 'ocean') {
+        synthRef.current.playOcean(audioVolume);
+      } else if (type === 'cosmos') {
+        synthRef.current.playCosmos(audioVolume);
+      }
+    } else {
+      // Stop any current sound when not running (will auto-start when breathing starts)
+      synthRef.current.stopAll();
     }
   };
 

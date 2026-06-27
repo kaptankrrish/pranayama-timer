@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Compass, Activity, Trophy, Eye, EyeOff } from 'lucide-react';
+import { Compass, Activity, Trophy, Eye, EyeOff, CheckSquare } from 'lucide-react';
 
 // Subcomponents
 import { Navbar } from './components/Navbar';
@@ -73,6 +73,7 @@ export default function App() {
   const [mobileTab, setMobileTab] = useState<'breathe' | 'library' | 'adjust' | 'todo' | 'journal'>('breathe');
   const [currentPage, setCurrentPage] = useState<PageType>('breathe');
   const [isZenMode, setIsZenMode] = useState(false);
+  const [sidebarSubTab, setSidebarSubTab] = useState<'tasks' | 'timers' | 'stopwatches'>('tasks');
 
   // 3. Form input states for Customize Panel
   const [formInhale, setFormInhale] = useState(() => settings.inhale);
@@ -599,6 +600,11 @@ export default function App() {
                   <Activity size={14} /> Customize Ratio
                 </>
               )}
+              {activeTab === 'todo' && (
+                <>
+                  <CheckSquare size={14} /> Tasks & Timers
+                </>
+              )}
               {activeTab === 'stats' && (
                 <>
                   <Trophy size={14} /> Progress Journal
@@ -624,6 +630,15 @@ export default function App() {
                 }}
               >
                 Ratio
+              </button>
+              <button
+                className={`tab ${activeTab === 'todo' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('todo');
+                  setMobileTab('todo');
+                }}
+              >
+                Tasks
               </button>
               <button
                 className={`tab ${activeTab === 'stats' ? 'active' : ''}`}
@@ -690,6 +705,38 @@ export default function App() {
           )}
 
           {activeTab === 'stats' && <StatsPanel stats={stats} />}
+
+          {activeTab === 'todo' && (
+            <TasksPanel
+              todos={todos}
+              newTodoText={newTodoText}
+              setNewTodoText={setNewTodoText}
+              handleAddTodo={handleAddTodo}
+              handleToggleTodo={handleToggleTodo}
+              handleDeleteTodo={handleDeleteTodo}
+              mindfulTimers={mindfulTimers}
+              timerLabel={timerLabel}
+              setTimerLabel={setTimerLabel}
+              timerMinutes={timerMinutes}
+              setTimerMinutes={setTimerMinutes}
+              timerSeconds={timerSeconds}
+              setTimerSeconds={setTimerSeconds}
+              handleAddTimer={handleAddTimer}
+              handleToggleTimer={handleToggleTimer}
+              handleResetTimer={handleResetTimer}
+              handleDeleteTimer={handleDeleteTimer}
+              mindfulStopwatches={mindfulStopwatches}
+              stopwatchLabel={stopwatchLabel}
+              setStopwatchLabel={setStopwatchLabel}
+              handleAddStopwatch={handleAddStopwatch}
+              handleToggleStopwatch={handleToggleStopwatch}
+              handleResetStopwatch={handleResetStopwatch}
+              handleAddLap={handleAddLap}
+              handleDeleteStopwatch={handleDeleteStopwatch}
+              activeSubTab={sidebarSubTab}
+              setActiveSubTab={setSidebarSubTab}
+            />
+          )}
         </aside>
 
         {/* Central visualizer breath-work stage */}
@@ -778,7 +825,7 @@ export default function App() {
               handleAddLap={handleAddLap}
               handleDeleteStopwatch={handleDeleteStopwatch}
               activeSubTab={currentPage === 'tasks' ? 'tasks' : currentPage === 'timers' ? 'timers' : 'stopwatches'}
-              setActiveSubTab={() => {}}
+              setActiveSubTab={(tab) => setCurrentPage(tab === 'tasks' ? 'tasks' : tab === 'timers' ? 'timers' : 'stopwatches')}
               isFullPage={true}
             />
           </div>
