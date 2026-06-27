@@ -1,0 +1,327 @@
+/* Breathing Orb & Visualizer */
+
+.breath-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 420px;
+  width: 100%;
+}
+
+.breath-orb-wrap {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Three Concentric Rings */
+
+/* Concentric SVG progress rings */
+.progress-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.progress-ring-bg {
+  stroke: var(--border-muted);
+  stroke-dasharray: 4 4;
+}
+
+.progress-ring-fill {
+  stroke: var(--c-inhale);
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px var(--c-inhale-glow));
+  transition: stroke-dashoffset 0.1s linear, stroke var(--transition-normal), filter var(--transition-normal);
+}
+
+.t-inhale .progress-ring-fill {
+  stroke: var(--c-inhale);
+  filter: drop-shadow(0 0 6px var(--c-inhale-glow));
+}
+.t-hold .progress-ring-fill {
+  stroke: var(--c-hold);
+  filter: drop-shadow(0 0 6px var(--c-hold-glow));
+}
+.t-exhale .progress-ring-fill {
+  stroke: var(--c-exhale);
+  filter: drop-shadow(0 0 6px var(--c-exhale-glow));
+}
+.t-hold2 .progress-ring-fill {
+  stroke: var(--c-hold2);
+  filter: drop-shadow(0 0 6px var(--c-hold2-glow));
+}
+
+/* Aura Glow Dynamic Hue Shifting Background */
+.breath-glow-ring {
+  position: absolute;
+  width: 254px;
+  height: 254px;
+  border-radius: var(--radius-full);
+  background: conic-gradient(
+    from 0deg,
+    var(--c-inhale) 0%,
+    var(--c-hold) 33%,
+    var(--c-exhale) 66%,
+    var(--c-hold2) 100%
+  );
+  filter: blur(28px);
+  opacity: 0.12;
+  animation: rotate-bg 20s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-theme="light"] .breath-glow-ring {
+  opacity: 0.08;
+}
+
+/* Morphing SVG Liquid Breathing Orb */
+.breath-orb {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  background: linear-gradient(135deg, var(--c-inhale) 0%, var(--c-exhale) 100%);
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  box-shadow: 0 0 45px var(--c-inhale-glow), var(--neu-outset);
+  transition: all var(--transition-normal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+/* Morphing animation triggers when running */
+.running .breath-orb {
+  animation: orb-morph 8s ease-in-out infinite alternate;
+}
+
+.orb-inner-glow {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: inherit;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Phase Transitions */
+.t-inhale .breath-orb {
+  background: linear-gradient(135deg, var(--c-inhale) 0%, hsl(var(--h-inhale), 90%, 65%) 100%);
+  box-shadow: 0 0 60px var(--c-inhale-glow), var(--neu-outset);
+}
+
+.t-hold .breath-orb {
+  background: linear-gradient(135deg, var(--c-hold) 0%, hsl(var(--h-hold), 95%, 70%) 100%);
+  box-shadow: 0 0 60px var(--c-hold-glow), var(--neu-outset);
+}
+
+.t-exhale .breath-orb {
+  background: linear-gradient(135deg, var(--c-exhale) 0%, hsl(var(--h-exhale), 90%, 75%) 100%);
+  box-shadow: 0 0 60px var(--c-exhale-glow), var(--neu-outset);
+}
+
+.t-hold2 .breath-orb {
+  background: linear-gradient(135deg, var(--c-hold2) 0%, hsl(var(--h-hold2), 90%, 70%) 100%);
+  box-shadow: 0 0 40px var(--c-hold2-glow), var(--neu-outset);
+}
+
+/* Glass Countdown Overlay Center */
+.breath-center {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border-radius: var(--radius-full);
+  background-color: rgba(10, 10, 15, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-muted);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-4);
+  text-align: center;
+  z-index: 4;
+  pointer-events: none;
+}
+
+[data-theme="light"] .breath-center {
+  background-color: rgba(255, 255, 255, 0.45);
+}
+
+.breath-timer {
+  font-family: var(--font-mono);
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--text-bright);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin-bottom: var(--space-1);
+}
+
+.breath-instruction {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  height: 28px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-2);
+}
+
+/* Phase Indicators */
+.phase-icon-row {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.phase-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--border-strong);
+  opacity: 0.3;
+  transition: all var(--transition-fast);
+}
+
+.phase-dot.active {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+.t-inhale .phase-dot.active { background-color: var(--c-inhale); }
+.t-hold .phase-dot.active { background-color: var(--c-hold); }
+.t-exhale .phase-dot.active { background-color: var(--c-exhale); }
+.t-hold2 .phase-dot.active { background-color: var(--c-hold2); }
+
+/* Ripple Visual Effects */
+.ripple-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--c-inhale-glow);
+  opacity: 0;
+}
+
+.running.t-inhale .ripple-1 {
+  animation: ripple-effect 4s linear infinite;
+}
+.running.t-inhale .ripple-2 {
+  animation: ripple-effect 4s linear infinite 2s;
+}
+
+.running.t-exhale .ripple-1 {
+  border-color: var(--c-exhale-glow);
+  animation: ripple-effect 4s linear infinite;
+}
+.running.t-exhale .ripple-2 {
+  border-color: var(--c-exhale-glow);
+  animation: ripple-effect 4s linear infinite 2s;
+}
+
+/* Physics Particle System */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--c-inhale);
+  border-radius: var(--radius-full);
+  opacity: 0;
+  transition: all var(--transition-normal);
+}
+
+/* Position particles in a ring around the center */
+.particle:nth-child(1) { top: 15%; left: 50%; }
+.particle:nth-child(2) { top: 25%; left: 75%; }
+.particle:nth-child(3) { top: 50%; left: 85%; }
+.particle:nth-child(4) { top: 75%; left: 75%; }
+.particle:nth-child(5) { top: 85%; left: 50%; }
+.particle:nth-child(6) { top: 75%; left: 25%; }
+.particle:nth-child(7) { top: 50%; left: 15%; }
+.particle:nth-child(8) { top: 25%; left: 25%; }
+.particle:nth-child(9) { top: 30%; left: 60%; }
+.particle:nth-child(10) { top: 60%; left: 70%; }
+.particle:nth-child(11) { top: 70%; left: 40%; }
+.particle:nth-child(12) { top: 40%; left: 30%; }
+
+/* Animation details when breathing */
+.running.t-inhale .particle {
+  opacity: 0.7;
+  transform: translate(calc(var(--x, 0px)), calc(var(--y, 0px))) scale(1.2);
+  transition: transform 4s ease-out;
+  background-color: var(--c-inhale);
+  filter: drop-shadow(0 0 2px var(--c-inhale));
+}
+
+.running.t-inhale .particle:nth-child(1) { --x: 0px; --y: -40px; }
+.running.t-inhale .particle:nth-child(2) { --x: 30px; --y: -30px; }
+.running.t-inhale .particle:nth-child(3) { --x: 40px; --y: 0px; }
+.running.t-inhale .particle:nth-child(4) { --x: 30px; --y: 30px; }
+.running.t-inhale .particle:nth-child(5) { --x: 0px; --y: 40px; }
+.running.t-inhale .particle:nth-child(6) { --x: -30px; --y: 30px; }
+.running.t-inhale .particle:nth-child(7) { --x: -40px; --y: 0px; }
+.running.t-inhale .particle:nth-child(8) { --x: -30px; --y: -30px; }
+.running.t-inhale .particle:nth-child(9) { --x: 20px; --y: -20px; }
+.running.t-inhale .particle:nth-child(10) { --x: 35px; --y: 20px; }
+.running.t-inhale .particle:nth-child(11) { --x: -15px; --y: 35px; }
+.running.t-inhale .particle:nth-child(12) { --x: -35px; --y: -15px; }
+
+.running.t-exhale .particle {
+  opacity: 0.8;
+  transform: translate(0, 0) scale(0.6);
+  transition: transform 4s ease-in;
+  background-color: var(--c-exhale);
+  filter: drop-shadow(0 0 2px var(--c-exhale));
+}
+
+.running.t-hold .particle {
+  opacity: 0.5;
+  background-color: var(--c-hold);
+  filter: drop-shadow(0 0 2px var(--c-hold));
+}
+
+.running.t-hold2 .particle {
+  opacity: 0.2;
+  background-color: var(--c-hold2);
+}

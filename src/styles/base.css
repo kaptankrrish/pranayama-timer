@@ -1,0 +1,182 @@
+/* Base & Global Styles */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: var(--text-normal);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* App Wrapper Layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Background Atmosphere */
+.ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, var(--bg-mesh-1) 0%, var(--bg-app) 70%);
+  transition: background var(--transition-normal);
+}
+
+/* Subtle dot grid pattern */
+.ambient-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: radial-gradient(var(--text-muted) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+/* Three Ambient Reactive Orbs */
+.ambient-orb {
+  position: absolute;
+  border-radius: var(--radius-full);
+  filter: blur(120px);
+  opacity: 0.45;
+  mix-blend-mode: screen;
+  transition: all 4s var(--ease-in-out-cubic);
+  pointer-events: none;
+}
+
+[data-theme="light"] .ambient-orb {
+  mix-blend-mode: multiply;
+  opacity: 0.25;
+  filter: blur(100px);
+}
+
+.orb-1 {
+  width: 50vw;
+  height: 50vw;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, var(--c-inhale) 0%, transparent 70%);
+}
+
+.orb-2 {
+  width: 60vw;
+  height: 60vw;
+  bottom: -20%;
+  right: -10%;
+  background: radial-gradient(circle, var(--c-exhale) 0%, transparent 70%);
+}
+
+.orb-3 {
+  width: 40vw;
+  height: 40vw;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--c-hold) 0%, transparent 70%);
+  opacity: 0.25;
+}
+
+/* Phase-Reactive Ambient Background shifts */
+.t-inhale .orb-1 {
+  transform: scale(1.2) translate(5%, 5%);
+  opacity: 0.6;
+}
+.t-hold .orb-3 {
+  transform: scale(1.3) translate(-10%, -10%);
+  opacity: 0.5;
+}
+.t-exhale .orb-2 {
+  transform: scale(1.2) translate(-5%, -5%);
+  opacity: 0.6;
+}
+.t-hold2 .orb-1, .t-hold2 .orb-2 {
+  transform: scale(0.9);
+  opacity: 0.3;
+}
+
+/* Film Grain Overlay */
+.noise-overlay {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.06;
+  filter: url(#noise);
+  animation: noise-shift 0.2s steps(4) infinite;
+}
+
+[data-theme="light"] .noise-overlay {
+  opacity: 0.03;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+/* Buttons (Tactile Reset) */
+button {
+  font-family: var(--font-sans);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  outline: none;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-lowest);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-high);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--surface-highest);
+}
+
+/* Selection */
+::selection {
+  background: var(--c-inhale-glow);
+  color: var(--text-bright);
+}

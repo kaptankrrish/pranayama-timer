@@ -1,0 +1,318 @@
+/* Controls, Zen Toggle & Playback */
+
+/* Center Stage Area Layout */
+.zen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-6) var(--space-5);
+  position: relative;
+  z-index: 10;
+}
+
+/* Zen mode top bar (preset badge + zen toggle) */
+.zen-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  transition: opacity var(--transition-normal);
+}
+
+.preset-badge {
+  background-color: var(--surface-low);
+  border: 1px solid var(--border-normal);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-normal);
+}
+
+.preset-badge strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.preset-badge .ratio {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background-color: var(--surface-high);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.zen-btn {
+  background-color: var(--surface-low);
+  border: 1px solid var(--border-normal);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  color: var(--text-normal);
+  transition: all var(--transition-fast);
+}
+
+.zen-btn:hover {
+  background-color: var(--surface-high);
+  color: var(--text-bright);
+  transform: translateY(-1px);
+}
+
+.zen-btn.on {
+  background-color: var(--c-inhale-glow);
+  border-color: var(--c-inhale);
+  color: var(--text-bright);
+}
+
+/* Playback & Session Hud Controls */
+.hud {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  transition: opacity var(--transition-normal);
+}
+
+/* Cycle Dots indicating Round progress */
+.cycle-dots {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+  align-items: center;
+}
+
+.cycle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-high);
+  border: 1px solid var(--border-muted);
+  transition: all var(--transition-normal);
+}
+
+.cycle-dot.filled {
+  background-color: var(--c-inhale);
+  box-shadow: 0 0 8px var(--c-inhale-glow);
+}
+
+.cycle-dot.current {
+  background-color: var(--c-hold);
+  box-shadow: 0 0 10px var(--c-hold-glow);
+  transform: scale(1.3);
+  animation: dot-pulse 1.5s ease-in-out infinite;
+}
+
+/* Playback buttons container */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+/* Neumorphic Buttons Styles */
+.ctrl-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-spring);
+  border-radius: var(--radius-full);
+  color: var(--text-normal);
+}
+
+.ctrl-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.ctrl-btn.side {
+  width: 48px;
+  height: 48px;
+  background-color: var(--surface-low);
+  border: 1px solid var(--border-normal);
+  box-shadow: var(--neu-outset);
+}
+
+.ctrl-btn.side:not(:disabled):hover {
+  background-color: var(--surface-high);
+  color: var(--text-bright);
+  transform: translateY(-2px);
+}
+
+.ctrl-btn.side:not(:disabled):active {
+  box-shadow: var(--neu-inset);
+  transform: translateY(1px);
+}
+
+.ctrl-btn.play {
+  width: 76px;
+  height: 76px;
+  background-color: var(--surface-mid);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--neu-outset);
+  color: var(--c-inhale);
+}
+
+.ctrl-btn.play:hover {
+  color: var(--text-bright);
+  transform: scale(1.05);
+}
+
+.ctrl-btn.play:active {
+  box-shadow: var(--neu-inset);
+  transform: scale(0.98);
+}
+
+.ctrl-btn.play.on {
+  background: linear-gradient(135deg, var(--c-inhale), var(--c-exhale));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 10px 25px -5px var(--c-inhale-glow);
+}
+
+/* Floating Audio Bar */
+.audio-ctrl {
+  background-color: var(--surface-low);
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  color: var(--text-muted);
+  transition: all var(--transition-normal);
+  max-width: 280px;
+}
+
+.audio-ctrl:hover {
+  border-color: var(--border-strong);
+}
+
+.audio-select {
+  background: none;
+  border: none;
+  color: var(--text-normal);
+  font-size: 0.8rem;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  padding-right: 4px;
+}
+
+.audio-select option {
+  background-color: var(--surface-mid);
+  color: var(--text-normal);
+}
+
+.vol-slider {
+  width: 70px;
+  height: 4px;
+  background-color: var(--surface-high);
+  border-radius: var(--radius-full);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background-color: var(--c-inhale);
+  transition: background-color var(--transition-fast);
+}
+
+.vol-slider::-webkit-slider-thumb:hover {
+  background-color: var(--text-bright);
+}
+
+/* Waveform container & animations */
+.waveform-container {
+  width: 100%;
+  max-width: 380px;
+  margin: var(--space-4) auto;
+  opacity: 0.5;
+  transition: all var(--transition-normal);
+  pointer-events: none;
+}
+
+.waveform-container.active {
+  opacity: 1;
+}
+
+.waveform {
+  width: 100%;
+}
+
+.wave-bg {
+  fill: none;
+  stroke: var(--border-muted);
+  stroke-width: 1.5;
+}
+
+.wave-progress {
+  fill: none;
+  stroke: var(--c-inhale);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke 0.4s ease;
+}
+
+.t-inhale .wave-progress { stroke: var(--c-inhale); }
+.t-hold .wave-progress { stroke: var(--c-hold); }
+.t-exhale .wave-progress { stroke: var(--c-exhale); }
+.t-hold2 .wave-progress { stroke: var(--c-hold2); }
+
+.wave-dot {
+  fill: var(--text-bright);
+  stroke: var(--c-inhale);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px var(--c-inhale-glow));
+  transition: fill var(--transition-fast), stroke var(--transition-normal);
+}
+
+.t-inhale .wave-dot { stroke: var(--c-inhale); }
+.t-hold .wave-dot { stroke: var(--c-hold); }
+.t-exhale .wave-dot { stroke: var(--c-exhale); }
+.t-hold2 .wave-dot { stroke: var(--c-hold2); }
+
+/* Zen mode hide states */
+.zm .zen-top,
+.zm .hud,
+.zm .waveform-container {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* If in zen mode, hover to briefly reveal the zen button to exit */
+.zm .zen-top {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: auto;
+}
+.zm:hover .zen-top {
+  opacity: 1;
+  pointer-events: auto;
+}

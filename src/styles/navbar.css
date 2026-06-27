@@ -1,0 +1,187 @@
+/* Floating Pill Navbar Styles */
+
+.nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 1200px;
+  height: 64px;
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-5);
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.nav.scrolled {
+  top: 8px;
+  height: 56px;
+  background-color: rgba(15, 15, 25, 0.85);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-normal);
+}
+
+[data-theme="light"] .nav.scrolled {
+  background-color: rgba(250, 250, 253, 0.9);
+}
+
+/* Brand styling */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--text-bright);
+}
+
+.brand-mark {
+  color: var(--c-inhale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-normal);
+}
+
+/* Lotus/Breathing animation synced to current phase */
+.brand-mark svg {
+  width: 24px;
+  height: 24px;
+}
+
+.t-inhale .brand-mark {
+  color: var(--c-inhale);
+  transform: scale(1.15);
+  transition: transform 4s ease-out;
+}
+.t-hold .brand-mark {
+  color: var(--c-hold);
+  transform: scale(1.15);
+}
+.t-exhale .brand-mark {
+  color: var(--c-exhale);
+  transform: scale(0.9);
+  transition: transform 4s ease-out;
+}
+.t-hold2 .brand-mark {
+  color: var(--c-hold2);
+  transform: scale(0.9);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.brand-tag {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+
+/* Nav links & actions */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--text-bright);
+}
+
+.nav-link.active {
+  color: var(--text-bright);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: var(--surface-low);
+  border: 1px solid var(--border-normal);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-normal);
+  transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  background: var(--surface-high);
+  color: var(--text-bright);
+  transform: scale(1.05);
+}
+
+/* Streak badge styling */
+.streak-badge {
+  background: linear-gradient(135deg, #ff9f1c, #ff6b6b);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.streak-badge::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 45%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 55%
+  );
+  transform: rotate(45deg);
+  animation: shine 4s ease infinite;
+}
+
+@keyframes shine {
+  0% { transform: translate(-100%, -100%) rotate(45deg); }
+  20%, 100% { transform: translate(100%, 100%) rotate(45deg); }
+}
+
+/* Zen mode transitions */
+.zm .nav {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -20px);
+}

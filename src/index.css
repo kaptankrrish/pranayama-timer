@@ -1,0 +1,11 @@
+/* Main Entry Stylesheet importing modular CSS files */
+
+@import './styles/design-tokens.css';
+@import './styles/base.css';
+@import './styles/animations.css';
+@import './styles/navbar.css';
+@import './styles/breathing-orb.css';
+@import './styles/controls.css';
+@import './styles/panels.css';
+@import './styles/education.css';
+@import './styles/responsive.css';
