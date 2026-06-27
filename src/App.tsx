@@ -803,6 +803,7 @@ export default function App() {
           setMobileTab={setMobileTab}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
+          setCurrentPage={setCurrentPage}
         />
       )}
     </div>

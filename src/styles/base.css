@@ -4,6 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -16,8 +17,10 @@ body {
   background-color: var(--bg-app);
   color: var(--text-normal);
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   position: relative;
+  overscroll-behavior: none;
   transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
@@ -179,4 +182,43 @@ button {
 ::selection {
   background: var(--c-inhale-glow);
   color: var(--text-bright);
+}
+
+/* Touch-friendly interactive elements */
+button, a, input, select, textarea, [role="button"] {
+  touch-action: manipulation;
+}
+
+/* Focus visible styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--c-inhale);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Prevent iOS zoom on inputs */
+input, select, textarea {
+  font-size: max(16px, 1rem);
+}
+
+/* Scrollable containers */
+.sidebar,
+.stopwatch-laps,
+.history-list {
+  overscroll-behavior: contain;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .noise-overlay {
+    display: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

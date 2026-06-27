@@ -184,6 +184,8 @@ export function TasksPanel({
               <div className="duration-input-wrap">
                 <input 
                   type="number" 
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   className="todo-input duration-num" 
                   min="0" 
                   max="180" 
@@ -196,6 +198,8 @@ export function TasksPanel({
               <div className="duration-input-wrap">
                 <input 
                   type="number" 
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   className="todo-input duration-num" 
                   min="0" 
                   max="59" 

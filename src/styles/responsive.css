@@ -92,17 +92,6 @@
     height: 280px;
   }
 
-  .progress-ring {
-    width: 230px;
-    height: 230px;
-  }
-
-  .progress-ring circle {
-    cx: 115;
-    cy: 115;
-    r: 112;
-  }
-
   .breath-glow-ring {
     width: 210px;
     height: 210px;
@@ -167,17 +156,6 @@
     height: 250px;
   }
 
-  .progress-ring {
-    width: 200px;
-    height: 200px;
-  }
-
-  .progress-ring circle {
-    cx: 100;
-    cy: 100;
-    r: 97;
-  }
-
   .breath-glow-ring {
     width: 180px;
     height: 180px;
@@ -205,7 +183,7 @@
 /* Apple Dock Inspired Bottom Mobile Navigation */
 .mobile-nav {
   position: fixed;
-  bottom: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 24px);
@@ -270,4 +248,96 @@
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, 20px);
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Fix full page content margin */
+  .full-page-content {
+    margin-top: 80px;
+    padding: var(--space-4);
+  }
+
+  /* Show todo delete buttons on mobile (no hover state) */
+  .todo-del-btn {
+    opacity: 1;
+  }
+
+  /* Fix form-row-4 on small screens */
+  .form-row-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Fix stats grid on very small screens */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .stat-card.wide {
+    grid-column: span 1;
+  }
+
+  /* Fix preset card hover - remove on touch */
+  .preset-card:hover {
+    transform: none;
+  }
+
+  /* Larger touch targets for controls */
+  .ctrl-btn.side {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Fix breathing stage for short viewports */
+  .breath-stage {
+    min-height: min(420px, 60vh);
+  }
+
+  /* Volume slider bigger touch target */
+  .vol-slider {
+    height: 32px;
+    width: 100px;
+    padding: 12px 0;
+    background: transparent;
+    background-color: var(--surface-high);
+    border-radius: var(--radius-full);
+  }
+  .vol-slider::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Zen mode touch fix - tap to reveal instead of hover */
+  .zm .zen-top {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Fix audio select font size */
+  .audio-select {
+    font-size: 16px;
+  }
+
+  /* Fix history item wrapping */
+  .history-item {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  /* Fix sidebar overflow */
+  .sidebar {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 375px) {
+  .full-page-content {
+    margin-top: 64px;
+    padding: var(--space-3);
+  }
+
+  /* Adjust nav padding */
+  .nav {
+    padding: 0 var(--space-3);
+  }
 }

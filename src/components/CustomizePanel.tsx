@@ -115,6 +115,8 @@ export function CustomizePanel({
             <input 
               className="num-input" 
               type="number" 
+              inputMode="numeric"
+              pattern="[0-9]*"
               min="0" 
               max="99" 
               value={formRounds}

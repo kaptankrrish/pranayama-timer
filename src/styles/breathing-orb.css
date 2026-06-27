@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  min-height: 420px;
+  min-height: min(420px, 60vh);
   width: 100%;
 }
 
@@ -28,6 +28,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 81%;
+  height: 81%;
   pointer-events: none;
   z-index: 2;
   overflow: visible;

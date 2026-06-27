@@ -144,6 +144,8 @@ export function TechniquePanel({
                   id="pr" 
                   className="field-input" 
                   type="number" 
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   min="0" 
                   max="99" 
                   value={newPresetRounds} 
@@ -159,6 +161,8 @@ export function TechniquePanel({
                   <input 
                     className="field-input" 
                     type="number" 
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     min="1" 
                     max="25" 
                     value={newPresetInhale} 
@@ -172,6 +176,8 @@ export function TechniquePanel({
                   <input 
                     className="field-input" 
                     type="number" 
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     min="0" 
                     max="25" 
                     value={newPresetHold1} 
@@ -184,6 +190,8 @@ export function TechniquePanel({
                   <input 
                     className="field-input" 
                     type="number" 
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     min="1" 
                     max="25" 
                     value={newPresetExhale} 
@@ -197,6 +205,8 @@ export function TechniquePanel({
                   <input 
                     className="field-input" 
                     type="number" 
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     min="0" 
                     max="25" 
                     value={newPresetHold2} 

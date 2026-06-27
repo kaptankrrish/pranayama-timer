@@ -7,6 +7,7 @@ interface MobileNavProps {
   setMobileTab: (tab: 'breathe' | 'library' | 'adjust' | 'todo' | 'journal') => void;
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
+  setCurrentPage: (page: 'breathe' | 'tasks' | 'timers' | 'stopwatches') => void;
 }
 
 export function MobileNav({
@@ -14,6 +15,7 @@ export function MobileNav({
   setMobileTab,
   activeTab: _activeTab,
   setActiveTab,
+  setCurrentPage,
 }: MobileNavProps) {
   const tabsOrder: Array<'breathe' | 'library' | 'adjust' | 'todo' | 'journal'> = [
     'breathe',
@@ -35,10 +37,26 @@ export function MobileNav({
 
   const handleTabClick = (tab: 'breathe' | 'library' | 'adjust' | 'todo' | 'journal') => {
     setMobileTab(tab);
-    if (tab === 'library') setActiveTab('presets');
-    if (tab === 'adjust') setActiveTab('customize');
-    if (tab === 'todo') setActiveTab('todo');
-    if (tab === 'journal') setActiveTab('stats');
+    if (tab === 'breathe') {
+      setActiveTab('presets');
+      setCurrentPage('breathe');
+    }
+    if (tab === 'library') {
+      setActiveTab('presets');
+      setCurrentPage('breathe');
+    }
+    if (tab === 'adjust') {
+      setActiveTab('customize');
+      setCurrentPage('breathe');
+    }
+    if (tab === 'todo') {
+      setActiveTab('presets');
+      setCurrentPage('tasks');
+    }
+    if (tab === 'journal') {
+      setActiveTab('stats');
+      setCurrentPage('breathe');
+    }
   };
 
   return (

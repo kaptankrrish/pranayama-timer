@@ -33,7 +33,7 @@ export function BreathingOrb({
   return (
     <div className="breath-orb-wrap">
       {/* Concentric Progress Ring */}
-      <svg className="progress-ring" width="260" height="260">
+      <svg className="progress-ring" viewBox="0 0 260 260" width="100%" height="100%">
         <circle 
           className="progress-ring-bg" 
           cx="130" 
